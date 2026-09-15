@@ -3,6 +3,17 @@ from hero import Hero
 
 ARENA_NAME = "bottomless hole"
 
+def battle(hero: Hero, enemy: Goblin):
+    while hero.is_alive() and enemy.is_alive():
+        hero_damage = hero.attack()
+        enemy.take_damage(hero_damage)
+        if enemy.is_alive():
+            enemy_damage = enemy.attack()
+            hero.take_damage(enemy_damage)
+    if hero.is_alive():
+        print(f"{hero.name} has won the battle!")
+    else:
+        print(f"{enemy.name} has won the battle!")
 
 def main():
     """Open the arena and introduce its first opponent."""
@@ -13,17 +24,13 @@ def main():
     goblin = Goblin("Schlork")
     goblin2 = Goblin("Scribble")
     hero = Hero("1BirdInTheHandIsWorth2InTheBush", "Janitor")
+    numworks = Hero("NumWorks Calculator", "Calculator")
 
     print(f"{goblin.name} enters the arena with {goblin.health} health.")
     print(f"{goblin2.name} enters the arena with {goblin2.health} health.")
     print(f"{hero.name} enters te arena with {hero.health} health. He is a {hero.battle_class}.")
-    damageDealt = hero.attack()
-    print(f"{hero.name} attacks!")
-    goblin.take_damage(damageDealt)
-    if goblin.is_alive():
-        damageDealt = goblin.attack()
-        print(f"{goblin.name} attacks!")
-        hero.take_damage(damageDealt)
+    battle(hero, goblin2)
+    battle(hero, numworks)
 
 
 
